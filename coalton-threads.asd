@@ -17,7 +17,13 @@
   :serial t
   :components ((:module "test"
                 :serial t
-                :components ((:file "package"))))
+                :components ((:file "package")
+                             (:file "thread")
+                             (:file "lock")
+                             (:file "condition-variable")
+                             (:file "semaphore")
+                             (:file "atomic")
+                             (:file "mutex"))))
   :perform (asdf:test-op
             (o s)
             (uiop:symbol-call '#:coalton-threads/test '#:run-tests)))
