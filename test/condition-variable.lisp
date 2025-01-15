@@ -11,12 +11,12 @@
                       (fn ()
                         (while (not (== i (threads:atomic-value atomic)))
                           (threads:await-cv cv lock)
-                          (sys:sleep (the Single-Float 0.1)))
+                          (sys:sleep 1/10))
                         (threads:incf-atomic! atomic 1)))
                     (threads:broadcast-cv cv))))
       (for x in (range target 1)
         (threads:spawn
-          (sys:sleep (the Single-Float 0.1))
+          (sys:sleep 1/10)
           (worker (- target x))))
       (threads:with-lock-held lock
         (fn ()

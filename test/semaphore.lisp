@@ -4,7 +4,7 @@
 (define-test semaphore-signal-await ()
   (let ((sem (threads:make-semaphore)))
     (threads:spawn
-      (sys:sleep (the Single-Float 0.5))
+      (sys:sleep 1/2)
       (threads:signal-semaphore sem 2))
     (threads:await-semaphore sem)
     (threads:await-semaphore sem)
