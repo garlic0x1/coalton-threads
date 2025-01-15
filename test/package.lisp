@@ -1,8 +1,8 @@
 (defpackage #:coalton-threads/test
   (:use #:coalton #:coalton-prelude #:coalton-testing)
-  (:local-nicknames (#:threads #:coalton-threads)
-                    (#:sys #:coalton-library/system)
-                    (#:result #:coalton-library/result))
+  (:local-nicknames
+   (#:threads #:coalton-threads)
+   (#:result #:coalton-library/result))
   (:export #:run-tests))
 (in-package #:coalton-threads/test)
 
@@ -13,3 +13,9 @@
   (fiasco:run-package-tests
    :packages '(#:coalton-threads/fiasco-test-package)
    :interactive interactive))
+
+(coalton-toplevel
+  (define (sleep n)
+    (lisp Unit (n)
+      (cl:sleep n)
+      Unit)))

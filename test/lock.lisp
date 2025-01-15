@@ -12,7 +12,7 @@
   (let ((lock (threads:make-lock))
         (thread
           (threads:spawn
-            (threads:with-lock-held lock (fn () (sys:sleep (the Integer 60)))))))
-    (sys:sleep (the Integer 1))
+            (threads:with-lock-held lock (fn () (sleep 60))))))
+    (sleep 1)
     (is (not (threads:acquire-lock-no-wait lock)))
     (threads:destroy thread)))
