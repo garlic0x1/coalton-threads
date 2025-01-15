@@ -1,8 +1,10 @@
 (asdf:defsystem #:coalton-threads
   :author "garlic0x1"
   :license "MIT"
+  :description "Primitive Threads and Concurrency Operations for Coalton"
   :depends-on (#:coalton #:bordeaux-threads)
   :components ((:module "src"
+                :serial t
                 :components ((:file "package")
                              (:file "thread")
                              (:file "lock")
@@ -14,7 +16,6 @@
 
 (asdf:defsystem #:coalton-threads/test
   :depends-on (#:coalton-threads #:coalton/testing)
-  :serial t
   :components ((:module "test"
                 :serial t
                 :components ((:file "package")

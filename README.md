@@ -1,4 +1,4 @@
-Threads and Concurrency Operations for Coalton
+Primitive Threads and Concurrency Operations for Coalton
 
 This library is a wrapper over
 [bordeaux-threads](https://github.com/sionescu/bordeaux-threads) with
