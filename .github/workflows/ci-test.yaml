@@ -9,10 +9,14 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
+      - name: Install Git
+        run: |
+          set -ex
+          apt-get update
+          apt-get install -y git
       - name: Install Coalton
         run: |
           set -ex
-          apt-get install -y git
           git clone \
             https://github.com/coalton-lang/coalton.git \
             /root/quicklisp/local-projects/coalton
