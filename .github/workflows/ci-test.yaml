@@ -9,12 +9,13 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
-      - name: Clone Coalton
-        uses: GuillaumeFalourd/clone-github-repo-action@v3
-        with:
-          owner: coalton-lang
-          repository: coalton
-          path-to-clone: /root/quicklisp/local-projects/coalton
+      - name: Install Coalton
+        run: |
+          set -ex
+          apt-get install git
+          git clone \
+            https://github.com/coalton-lang/coalton.git \
+            /root/quicklisp/local-projects/coalton
       - name: Run Tests
         run: |
           set -ex
