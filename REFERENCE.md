@@ -39,7 +39,6 @@
 ### [Value] ACQUIRE-RECURSIVE-LOCK-NO-WAIT *(LOCK → BOOLEAN)*
 
 > Acquire \`lock' for the calling thread.
-
 > Returns Boolean immediately, True if \`lock' was acquired, False otherwise.
 
 ### [Value] WITH-RECURSIVE-LOCK-HELD *∀ A. (RECURSIVELOCK → (UNIT → A) → A)*
@@ -49,15 +48,10 @@
 ### [Value] RELEASE-RECURSIVE-LOCK *(RECURSIVELOCK → (RESULT LISPCONDITION RECURSIVELOCK))*
 
 > Release \`lock'. It is an error to call this unless
-
 > the lock has previously been acquired (and not released) by the same
-
 > thread. If other threads are waiting for the lock, the
-
 > \`acquire-lock' call in one of them will now be able to continue.
-
 > 
-
 > Returns the lock.
 
 ### [Value] ACQUIRE-RECURSIVE-LOCK *(RECURSIVELOCK → BOOLEAN)*
@@ -67,7 +61,6 @@
 ### [Value] ACQUIRE-LOCK-NO-WAIT *(LOCK → BOOLEAN)*
 
 > Acquire \`lock' for the calling thread.
-
 > Returns Boolean immediately, True if \`lock' was acquired, False otherwise.
 
 ### [Value] MAKE-RECURSIVE-LOCK *(UNIT → RECURSIVELOCK)*
@@ -77,13 +70,11 @@
 ### [Value] SIGNAL-SEMAPHORE *(SEMAPHORE → UFIX → UNIT)*
 
 > Increment \`sem' by \`count'.
-
 > If there are threads awaiting this semaphore, then \`count' of them are woken up.
 
 ### [Value] AWAIT-SEMAPHORE *(SEMAPHORE → UNIT)*
 
 > Decrement the count of \`sem' by 1 if the count is larger than zero.
-
 > If the count is zero, blocks until \`sem' can be decremented.
 
 ### [Value] WITH-LOCK-HELD *∀ A. (LOCK → (UNIT → A) → A)*
@@ -109,15 +100,10 @@
 ### [Value] RELEASE-LOCK *(LOCK → (RESULT LISPCONDITION LOCK))*
 
 > Release \`lock'. It is an error to call this unless
-
 > the lock has previously been acquired (and not released) by the same
-
 > thread. If other threads are waiting for the lock, the
-
 > \`acquire-lock' call in one of them will now be able to continue.
-
 > 
-
 > Returns the lock.
 
 ### [Value] INCF-ATOMIC! *(ATOMICINTEGER → U64 → U64)*
@@ -143,7 +129,6 @@
 ### [Value] MAKE-THREAD *∀ A. ((UNIT → A) → (THREAD A))*
 
 > Creates and returns a thread, which will call the function
-
 > \`thunk' with no arguments: when \`thunk' returns, the thread terminates.
 
 ### [Value] MAKE-ATOMIC *(U64 → ATOMICINTEGER)*
@@ -153,7 +138,6 @@
 ### [Value] CAS-ATOMIC! *(ATOMICINTEGER → U64 → U64 → BOOLEAN)*
 
 > If the current value of \`atomic' is equal to \`old', replace it with \`new'.
-
 > Returns True if the replacement was successful, otherwise False.
 
 ### [Value] ALL-THREADS *(UNIT → (LIST LISPTHREAD))*
@@ -175,19 +159,14 @@
 ### [Value] INTERRUPT *∀ A. INTO A LISPTHREAD ⇒ (A → (UNIT → UNIT) → (RESULT LISPCONDITION A))*
 
 > Interrupt thread and call \`thunk' within its dynamic context,
-
 > then continue with the interrupted path of execution.
 
 ### [Value] AWAIT-CV *(CONDITIONVARIABLE → LOCK → UNIT)*
 
 > Atomically release \`lock' and enqueue the calling thread waiting for \`cv'.
-
 > The thread will resume when another thread has notified it using \`notify-cv';
-
 > it may also resume if interrupted by some external event or in other
-
 > implementation-dependent circumstances: the caller must always test on waking
-
 > that there is threading to be done, instead of assuming that it can go ahead.
 
 ### [Value] MAKE-CV *(UNIT → CONDITIONVARIABLE)*
