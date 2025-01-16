@@ -38,7 +38,7 @@
 
 > Wrapper for a native non-recursive lock.
 
-nil## Values
+## Values
 
 ### ACQUIRE-RECURSIVE-LOCK-NO-WAIT :: *(LOCK → BOOLEAN)*
 
