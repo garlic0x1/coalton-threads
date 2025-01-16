@@ -1,4 +1,4 @@
-## coalton-threads
+# coalton-threads
 
 ## Types
 
@@ -184,10 +184,6 @@ nil## Values
 ### ALIVE? :: *∀ A. INTO A LISPTHREAD ⇒ (A → BOOLEAN)*
 
 > Returns True if \`thread' has not finished or \`destroy' has not been called on it.
-
-### MUTEX :: *∀ A. (LOCK → (CELL A) → (MUTEX A))*
-
-> A mutually exclusive cell.
 
 ### JOIN :: *∀ A. ((THREAD A) → (RESULT LISPCONDITION A))*
 
