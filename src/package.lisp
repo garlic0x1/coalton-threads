@@ -47,7 +47,14 @@
    #:atomic-value
    ;; mutex.lisp
    #:Mutex
+   #:make-mutex
    #:read-mutex
    #:update-mutex!
    #:write-mutex!
+   ;; barrier.lisp
+   #:Barrier
+   #:make-barrier
+   #:unblock-barrier
+   #:block-barrier
+   #:await-barrier
    ))

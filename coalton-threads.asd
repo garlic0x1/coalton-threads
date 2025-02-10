@@ -11,7 +11,8 @@
                              (:file "condition-variable")
                              (:file "semaphore")
                              (:file "atomic")
-                             (:file "mutex"))))
+                             (:file "mutex")
+                             (:file "barrier"))))
   :in-order-to ((test-op (test-op #:coalton-threads/test))))
 
 (asdf:defsystem #:coalton-threads/test
@@ -24,7 +25,8 @@
                              (:file "condition-variable")
                              (:file "semaphore")
                              (:file "atomic")
-                             (:file "mutex"))))
+                             (:file "mutex")
+                             (:file "barrier"))))
   :perform (asdf:test-op
             (o s)
             (uiop:symbol-call '#:coalton-threads/test '#:run-tests)))

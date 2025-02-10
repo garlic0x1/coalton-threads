@@ -1,6 +1,7 @@
 (defpackage #:coalton-threads/test
   (:use #:coalton #:coalton-prelude #:coalton-testing)
   (:local-nicknames
+   (#:iter #:coalton-library/iterator)
    (#:threads #:coalton-threads)
    (#:result #:coalton-library/result))
   (:export #:run-tests))
