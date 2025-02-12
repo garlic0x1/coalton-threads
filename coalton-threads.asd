@@ -22,6 +22,7 @@
                 :components ((:file "package")
                              (:file "thread")
                              (:file "lock")
+                             (:file "recursive-lock")
                              (:file "condition-variable")
                              (:file "semaphore")
                              (:file "atomic")

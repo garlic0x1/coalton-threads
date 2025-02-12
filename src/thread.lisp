@@ -1,8 +1,18 @@
-(in-package #:coalton-threads)
+(defpackage #:coalton-threads/thread
+  (:use #:coalton #:coalton-prelude)
+  (:import-from #:coalton-library/system #:LispCondition)
+  (:shadow #:join)
+  (:export
+   #:Thread
+   #:spawn
+   #:current-thread
+   #:all-threads
+   #:join
+   #:interrupt
+   #:destroy
+   #:alive?))
+(in-package #:coalton-threads/thread)
 (named-readtables:in-readtable coalton:coalton)
-
-(cl:defmacro spawn (cl:&body body)
-  `(make-thread (fn () ,@body)))
 
 (coalton-toplevel
   (repr :native bt2:thread)
@@ -26,8 +36,8 @@
       (lisp LispThread (thread)
         thread)))
 
-  (declare make-thread ((Unit -> :a) -> Thread :a))
-  (define (make-thread thunk)
+  (declare spawn ((Unit -> :a) -> Thread :a))
+  (define (spawn thunk)
     "Creates and returns a thread, which will call the function
 `thunk' with no arguments: when `thunk' returns, the thread terminates."
     (lisp (Thread :a) (thunk)
