@@ -2,24 +2,26 @@
 (named-readtables:in-readtable coalton:coalton)
 
 (define-test atomic-incf-decf ()
-  (let ((atomic (threads:make-atomic 3)))
-    (is (== 13 (threads:incf-atomic! atomic 10)))
-    (is (== 9 (threads:decf-atomic! atomic 4)))))
+  (let ((atomic (atomic:new 3)))
+    (is (== 13 (atomic:incf! atomic 10)))
+    (is (== 9 (atomic:decf! atomic 4)))))
 
 (define-test atomic-cas ()
-  (let ((atomic (threads:make-atomic 4)))
-    (is (not (threads:cas-atomic! atomic 0 100)))
-    (is (threads:cas-atomic! atomic 4 3))
-    (is (== 3 (threads:atomic-value atomic)))))
+  (let ((atomic (atomic:new 4)))
+    (is (not (atomic:cas! atomic 0 100)))
+    (is (atomic:cas! atomic 4 3))
+    (is (== 3 (atomic:read atomic)))))
 
 (define-test atomic-concurrency ()
-  (let ((atomic (threads:make-atomic 4000))
-        (incer (threads:spawn
-                 (for x in (range 1 1000)
-                   (threads:incf-atomic! atomic 1))))
-        (decer (threads:spawn
-                 (for x in (range 1 1000)
-                   (threads:decf-atomic! atomic 1)))))
-    (is (result:ok? (threads:join incer)))
-    (is (result:ok? (threads:join decer)))
-    (is (== 4000 (threads:atomic-value atomic)))))
+  (let ((atomic (atomic:new 4000))
+        (incer (thread:spawn
+                 (fn ()
+                   (for x in (range 1 1000)
+                     (atomic:incf! atomic 1)))))
+        (decer (thread:spawn
+                 (fn ()
+                   (for x in (range 1 1000)
+                     (atomic:decf! atomic 1))))))
+    (is (result:ok? (thread:join incer)))
+    (is (result:ok? (thread:join decer)))
+    (is (== 4000 (atomic:read atomic)))))

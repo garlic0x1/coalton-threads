@@ -8,6 +8,7 @@
                 :components ((:file "package")
                              (:file "thread")
                              (:file "lock")
+                             (:file "recursive-lock")
                              (:file "condition-variable")
                              (:file "semaphore")
                              (:file "atomic")
@@ -31,3 +32,19 @@
   :perform (asdf:test-op
             (o s)
             (uiop:symbol-call '#:coalton-threads/test '#:run-tests)))
+
+#+dev
+(defun docgen ()
+  (with-open-file (s (merge-pathnames "REFERENCE.md" (asdf:system-source-directory :coalton-threads))
+                     :direction :output
+                     :if-exists :supersede
+                     :if-does-not-exist :create)
+    (coalton-docgen:render-docs s
+                                :coalton-threads/thread
+                                :coalton-threads/lock
+                                :coalton-threads/recursive-lock
+                                :coalton-threads/condition-variable
+                                :coalton-threads/semaphore
+                                :coalton-threads/atomic
+                                :coalton-threads/mutex
+                                :coalton-threads/barrier)))

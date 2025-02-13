@@ -2,17 +2,20 @@
 (named-readtables:in-readtable coalton:coalton)
 
 (define-test lock-acquire-release ()
-  (let ((lock (threads:make-lock)))
-    (is (threads:acquire-lock lock))
-    (threads:release-lock lock)
-    (is (threads:acquire-lock-no-wait lock))
-    (threads:release-lock lock)))
+  (let ((lock (lock:new)))
+    (is (lock:acquire lock))
+    (lock:release lock)
+    (is (lock:acquire-no-wait lock))
+    (lock:release lock)))
 
 (define-test lock-fail-acquire ()
-  (let ((lock (threads:make-lock))
+  (let ((lock (lock:new))
         (thread
-          (threads:spawn
-            (threads:with-lock-held lock (fn () (sleep 60))))))
+          (thread:spawn
+            (fn ()
+              (lock:with-lock-held lock
+                (fn ()
+                  (sleep 60)))))))
     (sleep 1)
-    (is (not (threads:acquire-lock-no-wait lock)))
-    (threads:destroy thread)))
+    (is (not (lock:acquire-no-wait lock)))
+    (thread:destroy thread)))
