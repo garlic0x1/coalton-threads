@@ -5,11 +5,15 @@ This library is a wrapper over
 a few extras, like a Mutex type.  It is meant to be pretty primitive,
 things like actors and parallel kernels are out of the scope of this
 library.
+     
+# Warning
+
+This software is still ALPHA quality. The APIs WILL change.
 
 # Missing Features
 
-Timeouts are not implemented, and some options like named
-threads/locks/etc are not available.
+Timeouts are not implemented for most operations, and some options
+like named threads/locks/etc are not available.
 
 # Known Issues
 

@@ -2,26 +2,29 @@
 (named-readtables:in-readtable coalton:coalton)
 
 (define-test semaphore-signal-await ()
-  (let ((sem (threads:make-semaphore)))
-    (threads:spawn
-      (sleep 1/2)
-      (threads:signal-semaphore sem 2))
-    (threads:await-semaphore sem)
-    (threads:await-semaphore sem)
+  (let ((sem (sem:new)))
+    (thread:spawn
+      (fn ()
+        (sleep 1/2)
+        (sem:signal sem 2)))
+    (sem:await sem)
+    (sem:await sem)
     (is True)))
 
 (define-test semaphore-n-of-m ()
-  (let ((sem (threads:make-semaphore))
-        (count (threads:make-atomic 0)))
-    (threads:spawn
-      (sleep 1)
-      (threads:signal-semaphore sem 4))
+  (let ((sem (sem:new))
+        (count (atomic:new 0)))
+    (thread:spawn
+      (fn ()
+        (sleep 1)
+        (sem:signal sem 4)))
     (for x in (range 1 5)
-      (threads:spawn
-        (threads:await-semaphore sem)
-        (threads:incf-atomic! count 1)))
+      (thread:spawn
+        (fn ()
+          (sem:await sem)
+          (atomic:incf! count 1))))
     (sleep 1)
-    (is (== 4 (threads:atomic-value count)))
-    (threads:signal-semaphore sem 1)
+    (is (== 4 (atomic:read count)))
+    (sem:signal sem 1)
     (sleep 1)
-    (is (== 5 (threads:atomic-value count)))))
+    (is (== 5 (atomic:read count)))))
